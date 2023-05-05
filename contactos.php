@@ -42,22 +42,20 @@ $contactos = $stmt->fetchAll(PDO::FETCH_OBJ);
             </thead>
             <tbody>
                 <?php foreach ($contactos as $fila) : ?>
-                <tr>
-                    <td><?php echo $fila->id; ?></td>
-                    <td><?php echo $fila->nombre; ?></td>
-                    <td><?php echo $fila->apellido; ?></td>
-                    <td><?php echo $fila->telefono; ?></td>
-                    <td><?php echo $fila->email; ?></td>
-                    <td><?php echo $fila->nombrecategoria; ?></td>
-                    <td>
-                        <a href="editar_contacto.php?id=<?php echo $fila->id; ?>" class="btn btn-warning"><i
-                                class="bi bi-pencil-fill"></i>
-                            Editar</a>
-                        <a href="borrar_contacto.php?id=<?php echo $fila->id; ?>" class="btn btn-danger"><i
-                                class="bi bi-x-circle-fill"></i>
-                            Borrar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?php echo $fila->id; ?></td>
+                        <td><?php echo $fila->nombre; ?></td>
+                        <td><?php echo $fila->apellido; ?></td>
+                        <td><?php echo $fila->telefono; ?></td>
+                        <td><?php echo $fila->email; ?></td>
+                        <td><?php echo $fila->nombrecategoria; ?></td>
+                        <td>
+                            <a href="editar_contacto.php?id=<?php echo $fila->id; ?>&idCategoria=<?php echo $fila->categoria_id; ?>" class="btn btn-warning"><i class="bi bi-pencil-fill"></i>
+                                Editar</a>
+                            <a href="borrar_contacto.php?id=<?php echo $fila->id; ?>" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i>
+                                Borrar</a>
+                        </td>
+                    </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
@@ -66,7 +64,7 @@ $contactos = $stmt->fetchAll(PDO::FETCH_OBJ);
 <?php include("includes/footer.php") ?>
 
 <script>
-$(document).ready(function() {
-    $('#tblContactos').DataTable();
-});
+    $(document).ready(function() {
+        $('#tblContactos').DataTable();
+    });
 </script>
