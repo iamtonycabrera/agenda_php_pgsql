@@ -4,7 +4,7 @@
 $host = "localhost";
 $dbname = "pgsql_agenda_db";
 $dbuser = "postgres";
-$userpass = "posgre";
+$userpass = "postgre";
 
 $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$dbuser;password=$userpass";
 
