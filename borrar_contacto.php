@@ -27,55 +27,31 @@ if (isset($_GET['id'])) {
     }
 
     // Insertamos datos
-    if (isset($_POST['editarContacto'])) {
-        // Obtener los valores
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $telefono = $_POST['telefono'];
-        $email = $_POST['email'];
-        $categoria = $_POST['categoria'];
+    if (isset($_POST['borrarContacto'])) {
 
-        // Validamos si esta vacio
-        if (empty($nombre) || empty($apellido) || empty($telefono) || empty($email) || empty($categoria)) {
-            $error = "Error, algunos campos obligatorios están vacíos";
-            header("Location: editar_contacto.php?error=" . $error);
-        } else {
-            // Si pasa por aqui es porque se puede ingresar el nuevo registro
-            $query = "UPDATE contactos SET 
-                nombre = :nombre, 
-                apellido = :apellido, 
-                telefono = :telefono, 
-                email = :email, 
-                categoria = :categoria
-                WHERE id = :id";
+         // Si pasa por aqui es porque se puede ingresar el nuevo registro
+         $query = "DELETE FROM contactos WHERE id = :id";
 
-            $stmt = $conn->prepare($query);
+         $stmt = $conn->prepare($query);
+         $stmt->bindParam(":id", $idContacto, PDO::PARAM_INT);
 
-            $stmt->bindParam(":nombre", $nombre, PDO::PARAM_STR);
-            $stmt->bindParam(":apellido", $apellido, PDO::PARAM_STR);
-            $stmt->bindParam(":telefono", $telefono, PDO::PARAM_STR);
-            $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-            $stmt->bindParam(":categoria", $categoria, PDO::PARAM_INT);
-            $stmt->bindParam(":id", $idContacto, PDO::PARAM_INT);
+         $result = $stmt->execute();
 
-            $result = $stmt->execute();
-
-            if ($result) {
-                $mensaje = "Contacto editado correctamente";
-                header("Location: contactos.php?mensaje=" . $mensaje);
-                exit();
-            } else {
-                $error = "Error, no se pudo editar el registro";
-                header("Location: editar_contacto.php?error=" . $error);
-                exit();
-            }
-        }
+         if ($result) {
+             $mensaje = "Contacto borrado correctamente";
+             header("Location: contactos.php?mensaje=" . $mensaje);
+             exit();
+         } else {
+             $error = "Error, no se pudo borrar el registro";
+             header("Location: borrar_contacto.php?error=" . $error);
+             exit();
+         }
     }
 }
 ?>
 <div class="row">
     <div class="col-sm-6">
-        <h3>Editar Contacto</h3>
+        <h3>Borrar Contacto</h3>
     </div>
 </div>
 <div class="row">
@@ -83,24 +59,24 @@ if (isset($_GET['id'])) {
         <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($contacto) echo $contacto->nombre ?>">
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($contacto) echo $contacto->nombre ?>" readonly>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos:</label>
-                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos" value="<?php if ($contacto) echo $contacto->apellido ?>">
+                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos" value="<?php if ($contacto) echo $contacto->apellido ?>" readonly>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono:</label>
-                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono" value="<?php if ($contacto) echo $contacto->telefono ?>">
+                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono" value="<?php if ($contacto) echo $contacto->telefono ?>" readonly>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email" value="<?php if ($contacto) echo $contacto->email ?>">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email" value="<?php if ($contacto) echo $contacto->email ?>" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Categoría:</label>
-                <select class="form-select" aria-label="Default select example" name="categoria">
+                <select class="form-select" aria-label="Default select example" name="categoria" readonly>
                     <option value="">--Selecciona una Categoría--</option>
                     <?php foreach ($categorias as $fila) : ?>
                         <option value="<?php echo $fila->id ?>" <?php if ($idCategoria == $fila->id) echo "selected" ?>><?php echo $fila->nombre ?></option>
@@ -108,7 +84,7 @@ if (isset($_GET['id'])) {
                 </select>
             </div>
             <br />
-            <button type="submit" name="editarContacto" class="btn btn-primary w-100"><i class="bi bi-person-bounding-box"></i> Editar Contacto</button>
+            <button type="submit" name="borrarContacto" class="btn btn-primary w-100"><i class="bi bi-person-bounding-box"></i> Borrar Contacto</button>
         </form>
     </div>
 </div>
