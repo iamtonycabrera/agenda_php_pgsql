@@ -73,6 +73,18 @@ if (isset($_GET['id'])) {
     }
 }
 ?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <?php if(isset($_GET['error'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?php echo $_GET['error'] ?></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6">
         <h3>Editar Contacto</h3>
@@ -83,19 +95,19 @@ if (isset($_GET['id'])) {
         <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($contacto) echo $contacto->nombre ?>">
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($contacto) echo $contacto->nombre ?>" required>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos:</label>
-                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos" value="<?php if ($contacto) echo $contacto->apellido ?>">
+                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos" value="<?php if ($contacto) echo $contacto->apellido ?>" required>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono:</label>
-                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono" value="<?php if ($contacto) echo $contacto->telefono ?>">
+                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono" value="<?php if ($contacto) echo $contacto->telefono ?>" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email" value="<?php if ($contacto) echo $contacto->email ?>">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email" value="<?php if ($contacto) echo $contacto->email ?>" required>
             </div>
 
             <div class="mb-3">

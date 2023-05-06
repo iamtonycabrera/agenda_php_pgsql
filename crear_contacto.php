@@ -50,6 +50,18 @@ if (isset($_POST['crearContacto'])) {
 }
 
 ?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <?php if(isset($_GET['error'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?php echo $_GET['error'] ?></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6">
         <h3>Crear un Nuevo Contacto</h3>
@@ -60,19 +72,19 @@ if (isset($_POST['crearContacto'])) {
         <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre">
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" required>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos:</label>
-                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos">
+                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa los apellidos" required>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono:</label>
-                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono">
+                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingresa el teléfono" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa el email" required>
             </div>
 
             <div class="mb-3">

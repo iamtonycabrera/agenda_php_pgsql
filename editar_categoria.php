@@ -48,6 +48,18 @@ if (isset($_GET['id'])) {
     }
 }
 ?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <?php if(isset($_GET['error'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?php echo $_GET['error'] ?></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6">
         <h3>Editar Categoría</h3>
@@ -58,7 +70,7 @@ if (isset($_GET['id'])) {
         <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($categoria) echo $categoria->nombre; ?>">
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php if ($categoria) echo $categoria->nombre; ?>" required>
             </div>
 
             <button type="submit" name="editarCategoria" class="btn btn-primary w-100">Editar Categoría</button>
